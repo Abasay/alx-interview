@@ -41,7 +41,7 @@ def pascal_recursive(size, arr):
 def pascal_triangle(num):
  ''' the pascal triangle'''
  if (num <= 0):
-   return [[]]
+   return []
  triangle_list = pascal_recursive(num, [])
  extra_list = [[1]]
  newList = triangle_list[1:] + extra_list
