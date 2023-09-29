@@ -1,0 +1,1 @@
+pascl triangle
