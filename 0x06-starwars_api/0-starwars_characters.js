@@ -16,14 +16,21 @@ const options = {
 };
 
 request(options, (err, resp, body) => {
-    if (err) console.log(err);
     let res = JSON.parse(body);
     let characters = res.characters
 
-    for (let elem = 0; elem < characters.length; elem++) {
-	request(characters[elem], (err, resp, body) => {
-	    let characterRes = JSON.parse(body);
-	    console.log(characterRes.name);
-	});
-    };
+    try{
+	if (!characters) {
+	    console.log('No characters found for this movie')
+	} else {
+	    for (let elem = 0; elem < characters.length; elem++) {
+		request(characters[elem], (err, resp, body) => {
+		    let characterRes = JSON.parse(body);
+		    console.log(characterRes.name);
+		});
+	    };
+	}
+    } catch (err){
+	console.log('No characters');
+    }
 });
