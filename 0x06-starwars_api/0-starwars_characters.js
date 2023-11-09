@@ -15,22 +15,20 @@ const options = {
     }
 };
 
-request(options, (err, resp, body) => {
-    let res = JSON.parse(body);
-    let characters = res.characters
+request(options, async(err, resp, body) => {
+    if (err) return console.error(err);
+    
+    let characters =  JSON.parse(body).characters;
+    //await queue result until they resolve in order
+    for (const characterUrl of characters) {
+	await new Promise((resolve, reject) => {
+	    request(characterUrl, (err, res, body) => {
+		if (err) return console.error(err);
 
-    try{
-	if (!characters) {
-	    console.log('No characters found for this movie')
-	} else {
-	    for (let elem = 0; elem < characters.length; elem++) {
-		request(characters[elem], (err, resp, body) => {
-		    let characterRes = JSON.parse(body);
-		    console.log(characterRes.name);
-		});
-	    };
-	}
-    } catch (err){
-	console.log('No characters');
+		console.log(JSON.parse(body).name)
+
+		resolve();
+	    });
+	});
     }
 });
