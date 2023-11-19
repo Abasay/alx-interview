@@ -1,4 +1,4 @@
-#!usr/bin/python
+#!/usr/bin/python3
 """
 Task 0X07 rotate the matrix
 """
