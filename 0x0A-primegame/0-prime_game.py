@@ -11,12 +11,13 @@ def primes(n):
     """
     prime = []
     sieve = [True] * (n + 1)
-    print(sieve)
+    # print(sieve)
     for p in range(2, n + 1):
         if sieve[p]:
             prime.append(p)
             for i in range(p, n + 1, p):
                 sieve[i] = False
+    # print
     return prime
 
 
